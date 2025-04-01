@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- Display message for GET requests -->
+{% if ticker_message %}
+<br/><br/>
+<div class="alert alert-info">
+    <h5>{{ ticker_message }}</h5>
+</div>
+{% endif %}
+
+<!-- Display stock data if available -->
+{% if api %}
+    {% if api is string or company_name is none %}
+    <!-- If 'api' is a string, it means there's an error message -->
+        <br/><br/>
+        <div class="alert alert-secondary alert-dismissible" role="alert">
+            <h5>{{ api }} Please try again!</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% else %}
+
+        <h3>{{ company_name }}<br/>{{ ticker }}</h3>    
+        {% for row in api %}
+                <strong>Day {{ forloop.counter }}:</strong>
+                <ul>
+                    {% for key, value in row.items %}
+                        <li>{{ key }}: {{ value }}</li>
+                    {% endfor %}
+                </ul>
+        {% endfor %}
+
+    {% endif %}     
+{% endif %}
+
+{% endblock %}  
