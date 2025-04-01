@@ -38,7 +38,7 @@ def home(request):
             return render(request, 'home.html')  # Re-render the form with an error message
         
         stock = yf.Ticker(ticker)           ## Create yfinance object for the ticker symbol. Fetch stock data using yfinance. Fetch data for the last 5 days (by default it's 1 month; when nothing is passed)  
-                                            ## (Can also use fetch_stock_data function alternatively)
+                                            ## (Can also use fetch_stock_data function alternatively!)
         try:
             api = stock.history(period="5d") # history() returns a Pandas DataFrame with historical stock price data                             
             if api.empty:                    # Check if the DataFrame is empty. The .empty property only works with a Pandas DataFrame
